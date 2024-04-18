@@ -21,7 +21,7 @@
                 Car Types:
                 @foreach (var item in @ViewBag.companyCarTypes)
                 {
-                    <div style ="margin-left: 30px;">@item</div>
+                    <div style="margin-left: 30px;">@item</div>
                 }
             </div>
             <input type="hidden" asp-for="Id" />
@@ -43,5 +43,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

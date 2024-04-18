@@ -8,8 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using LTWeb_CodeFirst.Data;
 using LTWeb_CodeFirst.Models;
 
-namespace LTWeb_CodeFirst.Controllers
+namespace LTWeb_CodeFirst.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CompaniesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -34,7 +35,7 @@ namespace LTWeb_CodeFirst.Controllers
             }
 
             var company = await _context.Companies
-                .FirstOrDefaultAsync(m => m.Id == id);          
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (company == null)
             {
                 return NotFound();
@@ -61,7 +62,7 @@ namespace LTWeb_CodeFirst.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Id,IsDeleted")] Company company, int[] SelectedCarTypes)
-        {        
+        {
             if (ModelState.IsValid)
             {
                 _context.Add(company);
@@ -124,7 +125,7 @@ namespace LTWeb_CodeFirst.Controllers
             }
 
             if (ModelState.IsValid)
-            { 
+            {
                 try
                 {
                     _context.Update(company);

@@ -1,0 +1,115 @@
+﻿@model LTWeb_CodeFirst.Models.Car
+
+@{
+    ViewData["Title"] = "Create";
+}
+<script>
+    $(document).ready(function () {
+        // Gán sự kiện onchange cho select của CarTypeId
+        $('#carTypeId').change(function () {
+            var selectedCarTypeId = $(this).val(); // Lấy giá trị đã chọn
+            if (selectedCarTypeId) { // Kiểm tra xem đã chọn loại xe chưa
+                // Gọi phương thức GetCompanyCarType thông qua Ajax
+                $.ajax({
+                    url: '/Cars/GetCompanyCarType',
+                    type: 'GET',
+                    data: { carTypeId: selectedCarTypeId },
+                    success: function (data) {
+                        // Xóa các mục hiện tại trong select của CompanyId
+                        $('#companyId').empty();
+                        // Thêm các mục mới dựa trên dữ liệu trả về từ action
+                        $.each(data, function (index, company) {
+                            $('#companyId').append($('<option>', {
+                                value: company.id, // Điều chỉnh giá trị và text cho mục option tùy theo dữ liệu trả về
+                                text: company.name
+                            }));
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            } else {
+                // Nếu không chọn loại xe, xóa các mục hiện tại trong select của CompanyId
+                $('#companyId').empty();
+            }
+        });
+    });
+</script>
+
+
+<h1>Create</h1>
+
+<h4>Car</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Tên Xe</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Seat" class="control-label">Chỗ Ngồi</label>
+                <input asp-for="Seat" class="form-control" />
+                <span asp-validation-for="Seat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarImages" class="control-label">Hình Xe</label>
+                <input asp-for="CarImages" type="file" class="form-control" />
+                <span asp-validation-for="CarImages" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gear" class="control-label">Động cơ</label>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="automaticRadio" name="Gear" value="Số tự động" checked/>
+                    <label class="form-check-label" for="automaticRadio">Automatic</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="manualRadio" name="Gear" value="Số sàn" />
+                    <label class="form-check-label" for="manualRadio">Manual</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label">Giá Bán</label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarTypeId" class="control-label">loại Xe</label>
+                <select id="carTypeId" class="form-control" asp-for="CarTypeId" asp-items="ViewBag.CarTypeId">
+                    <option value="">-- Chọn loại xe --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CompanyId" class="control-label">Hãng Xe</label>
+                <select id="companyId" class="form-control" asp-for="CompanyId" >
+                    <option value="">-- Chọn hãng xe --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="WarrantyId" class="control-label">Bảo Hành</label>
+                <select asp-for="WarrantyId" class ="form-control" asp-items="ViewBag.WarrantyId"></select>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDeleted" /> Ẩn
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Thêm mới" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Trở về danh sách</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
