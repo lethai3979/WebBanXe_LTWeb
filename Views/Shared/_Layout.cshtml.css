@@ -33,6 +33,9 @@ a {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+.logo {
+    height: 70px;
+}
 
 button.accept-policy {
   font-size: 1rem;
@@ -40,9 +43,15 @@ button.accept-policy {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 30px;
+    background-color: #333;
+}
+
+.copyright p {
+    color: aliceblue;
 }
