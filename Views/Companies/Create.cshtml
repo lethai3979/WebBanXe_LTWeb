@@ -1,0 +1,73 @@
+﻿@model LTWeb_CodeFirst.Models.Company
+
+@{
+    ViewData["Title"] = "Create";
+}
+<script>
+    $(document).ready(function () {
+        $(".car-type-checkbox").change(function () {
+            var selectedValues = [];
+            $(".car-type-checkbox:checked").each(function () {
+                selectedValues.push($(this).val());
+            });
+
+            // Gửi giá trị đã chọn đến action trong controller bằng Ajax
+            $.ajax({
+                url: '/Companies/Create',
+                type: 'POST',
+                dataType: 'json',
+                data: { selectedCarTypes: selectedValues },
+                success: function (data) {
+                    SelectedCarTypes = data;
+                },
+                error: function (xhr, status, error) {
+                    // Xử lý lỗi nếu có
+                }
+            });
+        });
+    });
+</script>
+<h1>Create</h1>
+
+<h4>Company</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="checkbox-list">
+                Car Types: 
+                @foreach (var carType in ViewBag.CarTypes)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input car-type-checkbox" type="checkbox" name="SelectedCarTypes" value="@carType.Value" id="carType-@carType.Value">
+                        <label class="form-check-label" for="carType-@carType.Value">
+                            @carType.Text
+                        </label>
+                    </div>
+                }
+            </div>
+            State
+            <div class="form-group form-check">
+                <input class="form-check-input" asp-for="IsDeleted"/>
+                @Html.DisplayNameFor(model => model.IsDeleted) 
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
