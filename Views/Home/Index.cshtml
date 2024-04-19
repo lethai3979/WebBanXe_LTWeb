@@ -1,8 +1,178 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@model PaginatedList<LTWeb_CodeFirst.Models.Car>
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+@{
     ViewData["Title"] = "Home Page";
+    int numOfQuantity = 1;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<form class="FormSearch dropdown" action="/Home/Index" method="get">
+    <input id="search-input" class="InfoSearch" type="text" name="query" placeholder="Tìm Sản phẩm" />
+    <div id="search-results" class="dropdown-content">
+    </div>
+    <input class="ButtonSearch" type="submit" value="Search" />
+</form>
+
+
+<section class="py-2">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justifycontent-center">
+
+            @foreach (var item in Model)
+            {
+
+                <div class="col mb-5">
+                    <div class="card gap-3" style="width: 18rem;box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                        <img src="@item.CarImages" class="card-img-top" alt="..."
+                             style="height: 250px">
+                        <div class="card-body">
+
+
+
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id" class="thea card-title">
+                                @Html.DisplayFor(modelItem =>
+                                         item.Name)
+                            </a>
+                            <div class="d-flex">
+                                <span>Price: </span>
+                                <p class="mx-3">@item.Price.ToString("#,##0") Vnđ</p>
+                            </div>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                var user = await UserManager.GetUserAsync(User);
+                                var userId = user.Id;
+                                <a asp-controller="Favorite" asp-action="AddToFavorite" asp-route-id="@item.Id" asp-route-userId="@userId">
+                                        <button class="btn btn-outline-dark" style="border:1px solid hotpink;">
+                                            <i class="ri-heart-2-fill classa"></i>  Add to Favorite
+                                        </button>
+                                    </a>
+                            }
+                            else
+                            {
+                                <a id="login" asp-area="Identity" asp-page="/Account/Login">
+
+                                    <button class="btn btn-outline-dark">
+                                        <i class="bi-cart-fill me-1"></i> Add to Cart
+                                    </button>
+                                </a>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</section>
+<div class="nutchuyentrang">
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-default
+@prevDisabled">
+        Previous
+    </a>
+    <a asp-action="Index"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
 </div>
+
+
+
+<script>
+    document.onready
+    $(document).ready(function () {
+        $("#search-input").keyup(function () {
+            var query = $(this).val();
+            if (query !== '') {
+                $.ajax({
+                    url: "/Home/SearchSuggestions",
+                    type: "GET",
+                    data: { query: query },
+                    dataType: "json",
+                    success: function (data) {
+                        $("#search-results").empty();
+                        $.each(data, function (index, suggestion) {
+                            $("#search-results").append("<div class='suggestion'>" + suggestion + "</div>");
+                        });
+                        debugger;
+                        // console.log($("#search-results"))
+                        if ($("#search-results").children().length == 0) {
+                            $(".dropdown-content").css("display", "none");
+                        } else {
+                            $(".dropdown-content").css("display", "block");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error:", error);
+                    }
+                });
+            } else {
+                $("#search-results").empty();
+                $(".dropdown-content").css("display", "none");
+            }
+        });
+        $(document).on("click", ".suggestion", function () {
+            var selectedSuggestion = $(this).text();
+            $("#search-input").val(selectedSuggestion);
+            $("#search-results").empty();
+            $(".dropdown-content").css("display", "none");
+        });
+        $(document).click(function (event) {
+            if (!$(event.target).closest('.dropdown').length) {
+                $(".dropdown-content").css("display", "none");
+            }
+        });
+    });
+</script>
+
+
+
+<style>
+    .classa {
+        font-size: 15px;
+        padding: 5px;
+        background-color: white;
+        border-radius: 50%;
+        color: hotpink;
+        border:2px solid hotpink;
+    }
+    .thea {
+        text-decoration: none;
+        color: black;
+        font-size: 22px;
+        margin-top: -15px;
+    }
+
+    .dropdown-content {
+        margin-top: 190px;
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        max-height: 200px;
+        overflow-y: auto;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .suggestion {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .suggestion:hover {
+       background-color: #f4f4f4;
+    }
+</style>

@@ -33,6 +33,9 @@ a {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+.logo {
+    height: 70px;
+}
 
 button.accept-policy {
   font-size: 1rem;
@@ -40,9 +43,58 @@ button.accept-policy {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 30px;
+    background-color: #333;
+    padding-block: 25px;
+    margin-bottom: -70px;
 }
+
+.copyright p {
+    color: aliceblue;
+}
+
+.cs{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.cs .azz .li{
+    list-style:none;
+}
+.a{
+    margin-inline:60px;
+    text-align:left;
+}
+.azz{
+    display:flex;
+
+}
+
+
+
+.socmedia {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.app {
+    padding-top: 40px;
+}
+.logozalo {
+    width: 40px;
+    height: 40px;
+    margin-inline: 20px;
+}
+/*.classa {
+    font-size: 20px;
+    padding: 5px 10px;
+    background-color: white;
+    border-radius: 50%;
+    color: hotpink;
+    border:2px solid hotpink;
+}*/

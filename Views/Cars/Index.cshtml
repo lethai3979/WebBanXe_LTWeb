@@ -11,12 +11,12 @@
 
 <p>
     <a asp-action="Create">Thêm Xe</a> |
-    @if (SignInManager.IsSignedIn(User))
+    @* @if (SignInManager.IsSignedIn(User))
     {
         var user = await UserManager.GetUserAsync(User);
         var userId = user.Id;
         <a asp-controller="Favorite" asp-action="Favorite" asp-route-userId="@userId">Favorite List</a>
-    }
+    } *@
 <table class="table">
     <thead>
         <tr>
@@ -60,7 +60,7 @@
                 @Html.DisplayFor(modelItem => item.Seat)
             </td>
             <td>
-                <img src="/images/@item.CarImages" alt="hinhanh.jpg" width="200px" />
+                <img src="@item.CarImages" alt="hinhanh.jpg" width="200px" />
             </td>
             <td>
                 @if (item.Gear)
