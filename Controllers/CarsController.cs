@@ -67,7 +67,7 @@ namespace LTWeb_CodeFirst.Controllers
 
             return Json(companies);
         }
-
+        [Authorize(Roles ="Admin")]
         // GET: Cars/Create
         public IActionResult Create()
         {
@@ -89,6 +89,7 @@ namespace LTWeb_CodeFirst.Controllers
         // POST: Cars/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Seat,Price,CarTypeId,CompanyId,WarrantyId,Id,IsDeleted")] Car car, string Gear, IFormFile? CarImages)
@@ -116,7 +117,7 @@ namespace LTWeb_CodeFirst.Controllers
             ViewData["WarrantyId"] = new SelectList(_context.Warranties, "Id", "Content", car.WarrantyId);
             return View(car);
         }
-
+        [Authorize(Roles ="Admin")]
         // GET: Cars/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -145,7 +146,6 @@ namespace LTWeb_CodeFirst.Controllers
 
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.[A[
         [Authorize(Roles = "Admin")]        
-        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Name,Seat,Price,CarTypeId,CompanyId,WarrantyId,Id,IsDeleted")] Car car, string gear,IFormFile? carImages)
@@ -206,7 +206,7 @@ namespace LTWeb_CodeFirst.Controllers
             ViewData["WarrantyId"] = new SelectList(_context.Warranties, "Id", "Content", car.WarrantyId);
             return View(car);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Cars/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -229,6 +229,7 @@ namespace LTWeb_CodeFirst.Controllers
         }
 
         // POST: Cars/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

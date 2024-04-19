@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LTWeb_CodeFirst.Data;
 using LTWeb_CodeFirst.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LTWeb_CodeFirst.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class WarrantiesController : Controller
     {
         private readonly ApplicationDbContext _context;

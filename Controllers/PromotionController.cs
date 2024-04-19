@@ -1,10 +1,12 @@
 ﻿using LTWeb_CodeFirst.Data;
 using LTWeb_CodeFirst.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LTWeb_CodeFirst.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PromotionController : Controller
     {
         private readonly ApplicationDbContext _context;
