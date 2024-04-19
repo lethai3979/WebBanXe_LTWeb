@@ -6,8 +6,9 @@ namespace LTWeb_CodeFirst.Models
     {
         public string? Name { get; set; }
         public int Seat { get; set; }
-        public List<string> CarImages { get; set;} = new List<string>();
-        public int Gear { get; set; }
+        public string? CarImages { get; set;}
+        [ValidateNever]
+        public bool Gear { get; set; } = true;
         public decimal Price { get; set; }
         public int CarTypeId { get; set; }
         [ValidateNever]

@@ -1,4 +1,3 @@
-﻿using LTWeb_CodeFirst.Data;
 using LTWeb_CodeFirst.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +36,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LoginPath = $"/Identity/Account/Register";
     options.LoginPath = $"/Identity/Account/AccessDenied";
 });
+
 
 
 builder.Services.AddControllersWithViews();

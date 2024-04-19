@@ -1,0 +1,90 @@
+﻿@model IEnumerable<LTWeb_CodeFirst.Models.Car>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Danh sách xe</h1>
+
+<p>
+    <a asp-action="Create">Thêm Xe</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tên Xe
+            </th>
+            <th>
+                Chỗ Ngồi
+            </th>
+            <th>
+                Hình Ảnh
+            </th>
+            <th>
+                Động cơ
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Loại Xe
+            </th>
+            <th>
+                Hãng
+            </th>
+            <th>
+                Bảo Hành
+            </th>
+            <th>
+                Ẩn
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seat)
+            </td>
+            <td>
+                <img src="/images/@item.CarImages" alt="hinhanh.jpg" width="200px" />
+            </td>
+            <td>
+                @if (item.Gear)
+                {
+                    <text>Số tự động</text>
+                }
+                else
+                {
+                    <text>Số sàn</text>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Warranty.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Sửa</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Chi tiết</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Ẩn</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
