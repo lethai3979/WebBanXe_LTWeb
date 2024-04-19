@@ -251,15 +251,15 @@ namespace LTWeb_CodeFirst.Migrations
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CreateOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PromotionId = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Invoices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Invoices_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        name: "FK_Invoices_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -449,14 +449,14 @@ namespace LTWeb_CodeFirst.Migrations
                 column: "InvoiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Invoices_ApplicationUserId",
-                table: "Invoices",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Invoices_PromotionId",
                 table: "Invoices",
                 column: "PromotionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Invoices_UserId",
+                table: "Invoices",
+                column: "UserId");
         }
 
         /// <inheritdoc />

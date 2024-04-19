@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LTWeb_CodeFirst.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240419021013_v1")]
+    [Migration("20240419132203_v1")]
     partial class v1
     {
         /// <inheritdoc />
@@ -243,9 +243,6 @@ namespace LTWeb_CodeFirst.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CreateOn")
                         .HasColumnType("datetime2");
 
@@ -258,11 +255,14 @@ namespace LTWeb_CodeFirst.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.HasIndex("PromotionId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Invoices");
                 });
@@ -535,17 +535,19 @@ namespace LTWeb_CodeFirst.Migrations
 
             modelBuilder.Entity("LTWeb_CodeFirst.Models.Invoice", b =>
                 {
-                    b.HasOne("LTWeb_CodeFirst.Models.ApplicationUser", null)
-                        .WithMany("Invoices")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("LTWeb_CodeFirst.Models.Promotion", "Promotion")
                         .WithMany("Invoices")
                         .HasForeignKey("PromotionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("LTWeb_CodeFirst.Models.ApplicationUser", "User")
+                        .WithMany("Invoices")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Promotion");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LTWeb_CodeFirst.Models.InvoiceDetail", b =>

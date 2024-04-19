@@ -35,12 +35,12 @@ namespace LTWeb_CodeFirst.Controllers
                 };
                 _context.FavoriteLists.Add(Favorite);
                 _context.SaveChanges();
-                return RedirectToAction("Index","Cars");
+                return RedirectToAction("Index","Home");
             }
             exisitingFavorite.IsDeleted = false;
             _context.FavoriteLists.Update(exisitingFavorite);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Cars");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Favorite(string userId)

@@ -25,3 +25,33 @@ body {
     color: #fff;
     margin-inline: 15px;
 }
+
+.FormSearch {
+    margin-inline: 30%;
+    display: flex;
+    align-items: center;
+    /*border: 1px solid black;*/
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.InfoSearch {
+    padding: 13px;
+    border: none;
+    border-radius: 15px;
+    flex: 1;
+    font-size: 16px;
+}
+
+.ButtonSearch {
+    padding: 15px 20px;
+    background-color: #5f91c6;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.nutchuyentrang {
+    margin-inline: 43%;
+}
