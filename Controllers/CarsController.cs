@@ -68,7 +68,7 @@ namespace LTWeb_CodeFirst.Controllers
 
             return Json(companies);
         }
-
+        [Authorize(Roles ="Admin")]
         // GET: Cars/Create
         public IActionResult Create()
         {
@@ -114,7 +114,6 @@ namespace LTWeb_CodeFirst.Controllers
             ViewData["WarrantyId"] = new SelectList(_context.Warranties, "Id", "Content", car.WarrantyId);
             return View(car);
         }
-
         // GET: Cars/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -141,9 +140,7 @@ namespace LTWeb_CodeFirst.Controllers
         // POST: Cars/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
 
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.[A[
-        [Authorize(Roles = "Admin")]        
-        
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.[A[       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Name,Seat,Price,CarTypeId,CompanyId,WarrantyId,Id,IsDeleted")] Car car, string gear,IFormFile? carImages)
@@ -204,7 +201,6 @@ namespace LTWeb_CodeFirst.Controllers
             ViewData["WarrantyId"] = new SelectList(_context.Warranties, "Id", "Content", car.WarrantyId);
             return View(car);
         }
-
         // GET: Cars/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

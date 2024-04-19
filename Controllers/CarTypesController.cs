@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using LTWeb_CodeFirst.Data;
 using LTWeb_CodeFirst.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LTWeb_CodeFirst.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class CarTypesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -49,6 +51,7 @@ namespace LTWeb_CodeFirst.Controllers
         }
 
         // GET: CarTypes/Create
+        
         public IActionResult Create()
         {
             var companies = _context.Companies.ToList();
