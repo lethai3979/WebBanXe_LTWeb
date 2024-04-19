@@ -1,3 +1,4 @@
+using LTWeb_CodeFirst.Data;
 using LTWeb_CodeFirst.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ builder.Services.AddSession(options =>
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

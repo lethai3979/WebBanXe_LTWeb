@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LTWeb_CodeFirst", "LTWeb_CodeFirst.csproj", "{879240D9-114B-4207-B7BE-DEFB3769C903}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LTWeb_CodeFirst", "LTWeb_CodeFirst.csproj", "{879240D9-114B-4207-B7BE-DEFB3769C903}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

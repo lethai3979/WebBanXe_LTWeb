@@ -23,6 +23,10 @@ namespace LTWeb_CodeFirst.Controllers
             return View();
         }
 
+        public IActionResult dk()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

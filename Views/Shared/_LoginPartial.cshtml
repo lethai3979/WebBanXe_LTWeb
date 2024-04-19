@@ -8,22 +8,21 @@
         var user = await UserManager.GetUserAsync(User);
         var fullName = user.FullName;
         <li class="nav-item">
-            <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                @fullName
+            <a  class="nav-link text-dark aaaaaaa" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
 
+                <div style="margin-top:10px;">
+                     @fullName
+                </div>
+                <div class="image-container1">
+                    <img src="@Url.Content(user.Images)" alt="Image" />
+                </div>
+                @* <img @* class="anhdd" src="@Url.Content(user.Images)" style="width:50px;padding:0px;border-radius:50%; margin-inline:20px;" alt="Alternate" /> *@
                 </a>
         </li>
-       @*  <li class="nav-item">
-            <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-        </li> *@
+   
     }
     else
     {
-        @* <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </li> *@
         <li class="nav-item">
             <a class=" nutlogin" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
@@ -31,11 +30,36 @@
 </ul>
 
 <style>
+    .aaaaaaa{
+        display:flex;
+    }
+    .image-container1 {
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+        padding: 0px;
+        margin-inline: 10px;
+
+    }
+
+        .image-container1 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius:50%;
+        }
     .nutlogin{
         padding:10px 25px;
         font-size:18px;
         color:white;
         background-color: #a13b08;
         margin-right:10px;
+        text-decoration: none;
+        border-radius:5px;
+    }
+
+    .nutlogin:hover{
+            padding: 9px 23px;
+            color:black;
     }
 </style>

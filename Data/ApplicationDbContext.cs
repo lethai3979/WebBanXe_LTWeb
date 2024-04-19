@@ -10,6 +10,7 @@ namespace LTWeb_CodeFirst.Data
             : base(options)
         {
         }
+        public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<CarType> CarsType { get; set; }
         public DbSet<CarTypeDetail> CarTypeDetails { get; set; }

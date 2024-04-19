@@ -6,10 +6,12 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using LTWeb_CodeFirst.Data;
 using LTWeb_CodeFirst.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LTWeb_CodeFirst.Areas.Identity.Pages.Account.Manage
 {
@@ -17,13 +19,16 @@ namespace LTWeb_CodeFirst.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _context;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
         /// <summary>
@@ -59,7 +64,36 @@ namespace LTWeb_CodeFirst.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            [Display(Name = "Images")]
+            public string Images { get; set; }
         }
+
+        //private async Task<string> SaveImage(IFormFile image)
+        //{
+        //    var savePath = Path.Combine("wwwroot/images", image.FileName);
+        //    using (var fileStream = new FileStream(savePath, FileMode.Create))
+        //    {
+        //        await image.CopyToAsync(fileStream);
+        //    }
+        //    return "/images/ImageUser/" + image.FileName;
+        //}
+
+        private async Task<string> SaveImage(IFormFile image)
+        {
+           
+            var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "ImageUser");           
+            if (!Directory.Exists(uploadPath))
+            {
+                Directory.CreateDirectory(uploadPath);
+            }
+            var savePath = Path.Combine(uploadPath, image.FileName);
+            using (var fileStream = new FileStream(savePath, FileMode.Create))
+            {
+                await image.CopyToAsync(fileStream);
+            }
+            return "/images/ImageUser/" + image.FileName;
+        }
+
 
         private async Task LoadAsync(ApplicationUser user)
         {
@@ -70,10 +104,10 @@ namespace LTWeb_CodeFirst.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
             };
         }
-
+        
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -100,6 +134,22 @@ namespace LTWeb_CodeFirst.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+            var currentUser = await _context.Users.FindAsync(user.Id);
+            if (currentUser == null)
+            {
+                return NotFound($"Unable to load user with ID '{user.Id}'.");
+            }
+
+            if (Request.Form.Files[0] != null)
+            {
+                var newImagePath = await SaveImage(Request.Form.Files[0]);
+                if (currentUser.Images != newImagePath)
+                {
+                    currentUser.Images = newImagePath;
+                    await _context.SaveChangesAsync();
+                }
+            }
+
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
@@ -115,5 +165,6 @@ namespace LTWeb_CodeFirst.Areas.Identity.Pages.Account.Manage
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
         }
+
     }
 }
