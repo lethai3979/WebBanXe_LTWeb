@@ -4,6 +4,7 @@ using LTWeb_CodeFirst.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LTWeb_CodeFirst.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240418140932_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,9 +48,6 @@ namespace LTWeb_CodeFirst.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -240,6 +240,9 @@ namespace LTWeb_CodeFirst.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("CreateOn")
                         .HasColumnType("datetime2");
 
@@ -252,14 +255,11 @@ namespace LTWeb_CodeFirst.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("PromotionId");
+                    b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("PromotionId");
 
                     b.ToTable("Invoices");
                 });
@@ -532,19 +532,17 @@ namespace LTWeb_CodeFirst.Migrations
 
             modelBuilder.Entity("LTWeb_CodeFirst.Models.Invoice", b =>
                 {
+                    b.HasOne("LTWeb_CodeFirst.Models.ApplicationUser", null)
+                        .WithMany("Invoices")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("LTWeb_CodeFirst.Models.Promotion", "Promotion")
                         .WithMany("Invoices")
                         .HasForeignKey("PromotionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LTWeb_CodeFirst.Models.ApplicationUser", "User")
-                        .WithMany("Invoices")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Promotion");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LTWeb_CodeFirst.Models.InvoiceDetail", b =>

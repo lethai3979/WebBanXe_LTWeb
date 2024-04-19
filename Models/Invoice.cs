@@ -10,5 +10,9 @@ namespace LTWeb_CodeFirst.Models
         public int PromotionId { get; set; }
         [ValidateNever]
         public Promotion Promotion { get; set; } = null!;
+
+        public string? UserId { get; set; }
+        [ValidateNever]
+        public ApplicationUser User { get; set; } = null!;
     }
 }
