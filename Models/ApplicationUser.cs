@@ -10,5 +10,6 @@ namespace LTWeb_CodeFirst.Models
         public ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
         public ICollection<FavoriteList> FavoriteList { get; set;} = new List<FavoriteList>();
         public string? Images {  get; set; }
+
     }
 }

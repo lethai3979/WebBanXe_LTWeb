@@ -1,14 +1,22 @@
-﻿@model IEnumerable<LTWeb_CodeFirst.Models.Car>
-
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<LTWeb_CodeFirst.Models.Car>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Index";
 }
+</ul>
 
 <h1>Danh sách xe</h1>
 
 <p>
-    <a asp-action="Create">Thêm Xe</a>
-</p>
+    <a asp-action="Create">Thêm Xe</a> |
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.GetUserAsync(User);
+        var userId = user.Id;
+        <a asp-controller="Favorite" asp-action="Favorite" asp-route-userId="@userId">Favorite List</a>
+    }
 <table class="table">
     <thead>
         <tr>
@@ -82,7 +90,14 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Sửa</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Chi tiết</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Ẩn</a>
+                <a asp-action="Delete" asp-route-id="@item.Id">Ẩn</a> |
+                
+                @if (SignInManager.IsSignedIn(User))
+                    {
+                        var user = await UserManager.GetUserAsync(User);
+                        var userId = user.Id;
+                      <a asp-controller = "Favorite" asp-action="AddToFavorite" asp-route-id="@item.Id" asp-route-userId="@userId">AddtoFavorite</a>
+                    }
             </td>
         </tr>
 }
