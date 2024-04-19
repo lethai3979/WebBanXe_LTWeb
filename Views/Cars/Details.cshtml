@@ -1,5 +1,7 @@
-﻿@model LTWeb_CodeFirst.Models.Car
-
+﻿@using Microsoft.AspNetCore.Identity
+@model LTWeb_CodeFirst.Models.Car
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Details";
 }
@@ -74,6 +76,11 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Sửa</a> |
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.GetUserAsync(User);
+        var userId = user.Id;
+        <a asp-controller="Invoice" asp-action="Invoice" asp-route-id="@Model.Id" asp-route-userId="@userId">Mua ngay</a>
+    }
     <a asp-action="Index">Trở về danh sách</a>
 </div>
