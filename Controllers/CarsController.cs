@@ -48,7 +48,7 @@ namespace LTWeb_CodeFirst.Controllers
         public IActionResult GetCompanyCarType(int carTypeId)
         {
             var companies = _context.CarTypeDetails
-                            .Where(c => c.CarTypeId == carTypeId)
+                            .Where(c => c.CarTypeId == carTypeId && c.Company.IsDeleted == false)
                             .Select(c => c.Company)
                             .ToList().Distinct();
             // Tạo danh sách SelectListItem từ dữ liệu companies
