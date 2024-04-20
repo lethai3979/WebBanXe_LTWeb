@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<LTWeb_CodeFirst.Models.FavoriteList>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Favorite";
+}
+
+<h1>Danh mục xe yêu thích</h1>
+
+<p>
+    <a asp-controller="Cars" asp-action="Index">Trở về trang chủ</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Xe
+            </th>
+            <th>
+                Loại xe
+            </th>
+
+            <th>
+                Mã người dùng
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => @item.Car.Name)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => @item.Car.CarType.Name)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.CarId">Thông tin chi tiết</a> |
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        var user = await UserManager.GetUserAsync(User);
+                        var userId = user.Id;
+                        <a asp-action="Delete" asp-route-id="@item.CarId" asp-route-userId="@userId">Bỏ yêu thích</a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

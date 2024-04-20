@@ -1,0 +1,105 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<LTWeb_CodeFirst.Models.Car>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Index";
+}
+</ul>
+
+<h1>Danh sách xe</h1>
+
+<p>
+    <a asp-action="Create">Thêm Xe</a> |
+    @* @if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.GetUserAsync(User);
+        var userId = user.Id;
+        <a asp-controller="Favorite" asp-action="Favorite" asp-route-userId="@userId">Favorite List</a>
+    } *@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tên Xe
+            </th>
+            <th>
+                Chỗ Ngồi
+            </th>
+            <th>
+                Hình Ảnh
+            </th>
+            <th>
+                Động cơ
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Loại Xe
+            </th>
+            <th>
+                Hãng
+            </th>
+            <th>
+                Bảo Hành
+            </th>
+            <th>
+                Mô tả
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seat)
+            </td>
+            <td>
+                <img src="@item.CarImages" alt="hinhanh.jpg" width="200px" />
+            </td>
+            <td>
+                @if (item.Gear)
+                {
+                    <text>Số tự động</text>
+                }
+                else
+                {
+                    <text>Số sàn</text>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Warranty.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Sửa</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Chi tiết</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Ẩn</a> |
+                
+                @if (SignInManager.IsSignedIn(User))
+                    {
+                        var user = await UserManager.GetUserAsync(User);
+                        var userId = user.Id;
+                      <a asp-controller = "Favorite" asp-action="AddToFavorite" asp-route-id="@item.Id" asp-route-userId="@userId">AddtoFavorite</a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

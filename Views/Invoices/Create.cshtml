@@ -1,0 +1,86 @@
+﻿@model LTWeb_CodeFirst.Models.Invoice
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Thông tin sản phẩm</h1>
+
+<h4>Xác nhận thanh toán</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" id="invoiceForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Total" class="control-label">Tổng tiền</label>
+                <input asp-for="Total" class="form-control" id="totalInput" readonly />
+                <span asp-validation-for="Total" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateOn" class="control-label">Ngày tạo hóa đơn</label>
+                <input asp-for="CreateOn" class="form-control" readonly />
+                <span asp-validation-for="CreateOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarId" class="control-label">Mã xe</label>
+                <input asp-for="CarId" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="PromotionId" class="control-label">Áp dụng khuyến mãi</label>
+                <select asp-for="PromotionId" class="form-control" id="promotionSelect" asp-items="ViewBag.PromotionId">
+                    <option value="">-- Chọn khuyến mãi --</option>
+                </select>
+                
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label">Mã người dùng</label>
+                <input asp-for="UserId" class="form-control" readonly />
+            </div>
+@*             <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                </label>
+            </div> *@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.GetUserAsync(User);
+        var userId = user.Id;
+        <a asp-action="Index" asp-route-userId="@Model.UserId">Back to List</a>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#promotionSelect').change(function () {
+                var promotionId = $(this).val(); // Lấy giá trị promotionId từ select
+                var initialTotal = parseFloat(@Model.Total); // Lấy giá trị total ban đầu từ input
+
+                $.ajax({
+                    url: '/Invoices/CalculateTotal',
+                    type: 'POST',
+                    data: { promotionId: promotionId, initialTotal: initialTotal },
+                    success: function (response) {
+                        // Cập nhật giá trị total mới trên trang
+                        $('#totalInput').val(response.total);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+
+    </script>
+}

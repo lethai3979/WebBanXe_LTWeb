@@ -21,6 +21,10 @@ namespace LTWeb_CodeFirst.Data
         public DbSet<FavoriteList> FavoriteLists { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Invoice>(e =>
+            {
+                e.Property(e => e.PromotionId).HasDefaultValue(null);
+            });
             base.OnModelCreating(builder);
         }
     }

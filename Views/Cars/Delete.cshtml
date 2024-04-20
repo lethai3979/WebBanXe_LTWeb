@@ -1,0 +1,86 @@
+﻿@model LTWeb_CodeFirst.Models.Car
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Ẩn</h1>
+
+<div>
+    <h4>Ẩn</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Tên Xe
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Mô tả
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            Chỗ Ngồi
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Seat)
+        </dd>
+        <dt class = "col-sm-2">
+            Hình Xe
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="/images/@Model.CarImages" alt="hinhanh.jpg" width="200px" />
+        </dd>
+        <dt class = "col-sm-2">
+            Động Cơ
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.Gear)
+            {
+                <text>Số tự động</text>
+            }
+            else
+            {
+                <text>Số sàn</text>
+            }
+        </dd>
+        <dt class = "col-sm-2">
+            Giá Bán
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class = "col-sm-2">
+            Loại Xe
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CarType.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            Hãng Xe
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Company.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            Bảo Hành
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Warranty.Content)
+        </dd>
+       @*  <dt class = "col-sm-2">
+            Trạng Thái Ẩn
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd> *@
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Ẩn" class="btn btn-danger" /> |
+        <a asp-action="Index">Trở về danh sách</a>
+    </form>
+</div>
