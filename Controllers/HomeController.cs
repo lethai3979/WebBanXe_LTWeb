@@ -17,7 +17,7 @@ namespace LTWeb_CodeFirst.Controllers
 
         public async Task<IActionResult> Index(string query,int pageNumber = 1)
         {
-            int pageSize = 10;
+            int pageSize = 5;
             IQueryable<Car> carsQuery;
             if (query != null)
             {

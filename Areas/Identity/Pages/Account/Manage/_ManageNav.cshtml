@@ -13,7 +13,7 @@
         var user = await UserManager.GetUserAsync(User);
         var userId = user.Id;
         @* <li class="nav-item"><a class="abc" asp-controller="Favorite" asp-action="Favorite" asp-route-userId="@userId">Favorite List</a></li> *@
-        <li class="nav-item"><a class="abc" asp-area="" asp-controller="Invoices" asp-action="Index">Lịch sử mua hàng</a></li>
+        <li class="nav-item"><a class="abc" asp-area="" asp-controller="Invoices" asp-action="Index" asp-route-userId="@userId">Lịch sử mua hàng</a></li>
     }
     <li class="nav-item"><a class="nav-link chutrang @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
     <li class="nav-item"><a class="nav-link chutrang @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Mật khẩu</a></li>

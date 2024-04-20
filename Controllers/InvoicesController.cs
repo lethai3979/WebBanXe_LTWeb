@@ -79,7 +79,8 @@ namespace LTWeb_CodeFirst.Controllers
                 CreateOn = DateTime.Now,
                 Total = car.Price
             };
-            ViewData["PromotionId"] = new SelectList(_context.Promotions, "Id", "Content");
+            var promotions = await _context.Promotions.Where(p => p.IsDeleted == false).ToListAsync(); 
+            ViewData["PromotionId"] = new SelectList(promotions, "Id", "Content");
             return View(invoice);
         }
 
