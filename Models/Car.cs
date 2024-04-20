@@ -19,7 +19,7 @@ namespace LTWeb_CodeFirst.Models
         public int WarrantyId { get; set; }
         [ValidateNever]
         public Warranty Warranty { get; set; } = null!;
-        public ICollection<InvoiceDetail> Invoices { get; set; } = new List<InvoiceDetail>();
+        public ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
         public ICollection<FavoriteList> FavoriteList { get; set; } = new List<FavoriteList>(); 
     }
 }

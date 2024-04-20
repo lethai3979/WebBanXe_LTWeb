@@ -80,7 +80,7 @@
     {
         var user = await UserManager.GetUserAsync(User);
         var userId = user.Id;
-        <a asp-controller="Invoice" asp-action="Invoice" asp-route-id="@Model.Id" asp-route-userId="@userId">Mua ngay</a>
+        <a asp-controller="Invoices" asp-action="Create" asp-route-id="@Model.Id" asp-route-userId="@userId">Mua ngay</a>
     }
     <a asp-action="Index">Trở về danh sách</a>
 </div>

@@ -35,6 +35,8 @@
 
                         @if (SignInManager.IsSignedIn(User))
                         {
+                            var user = await UserManager.GetUserAsync(User);
+                            var userId = user.Id;
                             if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
@@ -53,20 +55,26 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Cars" asp-action="Index">Car</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Promotion" asp-action="Index">Promotion</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Promotions" asp-action="Index">Promotions</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Invoices" asp-action="Index" asp-route-userId="@userId">Invoices</a>
                                 </li>
                             }
-                            else if (User.IsInRole("User"))
+                            if(User.IsInRole("Customer"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Invoices" asp-action="Index">Invoices</a>
                                 </li>
                             }
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Product Guest</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                         }
 

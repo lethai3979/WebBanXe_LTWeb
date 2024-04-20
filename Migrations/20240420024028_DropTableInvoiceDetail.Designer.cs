@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LTWeb_CodeFirst.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240419132203_v1")]
-    partial class v1
+    [Migration("20240420024028_DropTableInvoiceDetail")]
+    partial class DropTableInvoiceDetail
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -243,6 +243,9 @@ namespace LTWeb_CodeFirst.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreateOn")
                         .HasColumnType("datetime2");
 
@@ -260,43 +263,13 @@ namespace LTWeb_CodeFirst.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CarId");
+
                     b.HasIndex("PromotionId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Invoices");
-                });
-
-            modelBuilder.Entity("LTWeb_CodeFirst.Models.InvoiceDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("InvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarId");
-
-                    b.HasIndex("InvoiceId");
-
-                    b.ToTable("InvoiceDetails");
                 });
 
             modelBuilder.Entity("LTWeb_CodeFirst.Models.Promotion", b =>
@@ -535,6 +508,12 @@ namespace LTWeb_CodeFirst.Migrations
 
             modelBuilder.Entity("LTWeb_CodeFirst.Models.Invoice", b =>
                 {
+                    b.HasOne("LTWeb_CodeFirst.Models.Car", "Car")
+                        .WithMany("Invoices")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("LTWeb_CodeFirst.Models.Promotion", "Promotion")
                         .WithMany("Invoices")
                         .HasForeignKey("PromotionId")
@@ -545,28 +524,11 @@ namespace LTWeb_CodeFirst.Migrations
                         .WithMany("Invoices")
                         .HasForeignKey("UserId");
 
+                    b.Navigation("Car");
+
                     b.Navigation("Promotion");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("LTWeb_CodeFirst.Models.InvoiceDetail", b =>
-                {
-                    b.HasOne("LTWeb_CodeFirst.Models.Car", "Car")
-                        .WithMany("Invoices")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LTWeb_CodeFirst.Models.Invoice", "Invoice")
-                        .WithMany("Invoices")
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-
-                    b.Navigation("Invoice");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -646,11 +608,6 @@ namespace LTWeb_CodeFirst.Migrations
                     b.Navigation("CarTypeDetail");
 
                     b.Navigation("Cars");
-                });
-
-            modelBuilder.Entity("LTWeb_CodeFirst.Models.Invoice", b =>
-                {
-                    b.Navigation("Invoices");
                 });
 
             modelBuilder.Entity("LTWeb_CodeFirst.Models.Promotion", b =>

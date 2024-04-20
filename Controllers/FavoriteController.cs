@@ -45,7 +45,7 @@ namespace LTWeb_CodeFirst.Controllers
 
         public IActionResult Favorite(string userId)
         {
-            ViewData["Cars"] = _context.FavoriteLists.Select(f=>f.Car).ToList();
+            ViewData["Cars"] = _context.FavoriteLists.Select(f => f.Car).ToList();
             var cars = _context.FavoriteLists.Where(p => p.UserId == userId && p.IsDeleted == false).ToList();
             return View(cars);
         }

@@ -72,9 +72,12 @@ namespace LTWeb_CodeFirst.Controllers
         // GET: Cars/Create
         public IActionResult Create()
         {
-            ViewData["CarTypeId"] = new SelectList(_context.CarsType, "Id", "Name");
-            ViewData["CompanyId"] = new SelectList(_context.Companies, "Id", "Name");
-            ViewData["WarrantyId"] = new SelectList(_context.Warranties, "Id", "Content");
+            var carTypes = _context.CarsType.Where(c => c.IsDeleted == false).ToList();
+            var companies = _context.Companies.Where(c => c.IsDeleted == false).ToList();
+            var warranties = _context.Warranties.Where(c => c.IsDeleted == false).ToList();
+            ViewData["CarTypeId"] = new SelectList(carTypes, "Id", "Name");
+            ViewData["CompanyId"] = new SelectList(companies, "Id", "Name");
+            ViewData["WarrantyId"] = new SelectList(warranties, "Id", "Content");
             return View();
         }
         public async Task<string> SaveImage(IFormFile file)
@@ -109,9 +112,12 @@ namespace LTWeb_CodeFirst.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarTypeId"] = new SelectList(_context.CarsType, "Id", "Name", car.CarTypeId);
-            ViewData["CompanyId"] = new SelectList(_context.Companies, "Id", "Name", car.CompanyId);
-            ViewData["WarrantyId"] = new SelectList(_context.Warranties, "Id", "Content", car.WarrantyId);
+            var carTypes = _context.CarsType.Where(c => c.IsDeleted == false).ToList();
+            var companies = _context.Companies.Where(c => c.IsDeleted == false).ToList();
+            var warranties = _context.Warranties.Where(c => c.IsDeleted == false).ToList();
+            ViewData["CarTypeId"] = new SelectList(carTypes, "Id", "Name");
+            ViewData["CompanyId"] = new SelectList(companies, "Id", "Name");
+            ViewData["WarrantyId"] = new SelectList(warranties, "Id", "Content");
             return View(car);
         }
         // GET: Cars/Edit/5
@@ -127,13 +133,12 @@ namespace LTWeb_CodeFirst.Controllers
             {
                 return NotFound();
             }
-            ViewData["CarTypeId"] = new SelectList(_context.CarsType, "Id", "Name", car.CarTypeId);
-            ViewData["WarrantyId"] = new SelectList(_context.Warranties, "Id", "Content", car.WarrantyId);
-            var carCompanies = _context.CarTypeDetails
-                            .Where(c => c.CarTypeId == car.CarTypeId)
-                            .Select(c => c.Company)
-                            .ToList().Distinct();
-            ViewData["CarCompanies"] = new SelectList(carCompanies, "Id", "Name", car.CompanyId);
+            var carTypes = _context.CarsType.Where(c => c.IsDeleted == false).ToList();
+            var companies = _context.Companies.Where(c => c.IsDeleted == false).ToList();
+            var warranties = _context.Warranties.Where(c => c.IsDeleted == false).ToList();
+            ViewData["CarTypeId"] = new SelectList(carTypes, "Id", "Name");
+            ViewData["CompanyId"] = new SelectList(companies, "Id", "Name");
+            ViewData["WarrantyId"] = new SelectList(warranties, "Id", "Content");
             return View(car);
         }
 
@@ -163,13 +168,8 @@ namespace LTWeb_CodeFirst.Controllers
 
                     if (carImages != null)
                     {
-                        // Đã tải lên hình ảnh mới
                         existingCar.CarImages = await SaveImage(carImages);
                     }
-                    // Người dùng không tải lên hình ảnh mới, giữ lại hình ảnh cũ
-                    // Không cần thêm else vì mặc định existingCar.CarImages đã được giữ lại
-
-                    // Cập nhật các thuộc tính của existingCar từ đối tượng car được chỉnh sửa
                     existingCar.Name = car.Name;
                     existingCar.Seat = car.Seat;
                     existingCar.Price = car.Price;
@@ -196,9 +196,12 @@ namespace LTWeb_CodeFirst.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarTypeId"] = new SelectList(_context.CarsType, "Id", "Name", car.CarTypeId);
-            ViewData["CompanyId"] = new SelectList(_context.Companies, "Id", "Name", car.CompanyId);
-            ViewData["WarrantyId"] = new SelectList(_context.Warranties, "Id", "Content", car.WarrantyId);
+            var carTypes = _context.CarsType.Where(c => c.IsDeleted == false).ToList();
+            var companies = _context.Companies.Where(c => c.IsDeleted == false).ToList();
+            var warranties = _context.Warranties.Where(c => c.IsDeleted == false).ToList();
+            ViewData["CarTypeId"] = new SelectList(carTypes, "Id", "Name");
+            ViewData["CompanyId"] = new SelectList(companies, "Id", "Name");
+            ViewData["WarrantyId"] = new SelectList(warranties, "Id", "Content");
             return View(car);
         }
         // GET: Cars/Delete/5
@@ -230,7 +233,8 @@ namespace LTWeb_CodeFirst.Controllers
             var car = await _context.Cars.FindAsync(id);
             if (car != null)
             {
-                _context.Cars.Remove(car);
+                car.IsDeleted = true;
+                _context.Cars.Update(car);
             }
 
             await _context.SaveChangesAsync();

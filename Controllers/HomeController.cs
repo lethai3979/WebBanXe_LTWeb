@@ -17,38 +17,19 @@ namespace LTWeb_CodeFirst.Controllers
 
         public async Task<IActionResult> Index(string query,int pageNumber = 1)
         {
-            int pageSize = 1;
+            int pageSize = 2;
             IQueryable<Car> productsQuery;
             if (query != null)
             {
-                productsQuery = _context.Cars.Include(p => p.Warranty).Where(b => b.Name.Contains(query));
+                productsQuery = _context.Cars.Include(p => p.Warranty).Where(b => b.Name.Contains(query) && b.IsDeleted == false);
             }
             else
             {
-                productsQuery = _context.Cars.Include(p => p.Warranty);
+                productsQuery = _context.Cars.Include(p => p.Warranty).Where(b => b.IsDeleted == false);
             }
             var paginatedCar = await PaginatedList<Car>.CreateAsync(productsQuery, pageNumber, pageSize);
             ViewData["SearchString"] = query;
             return View(paginatedCar);
-        }
-
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var car = await _context.Cars
-                .Include(c => c.CarType)
-                .Include(c => c.Company)
-                .Include(c => c.Warranty)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (car == null)
-            {
-                return NotFound();
-            }
-            return View(car);
         }
 
 
