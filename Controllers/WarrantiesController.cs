@@ -118,39 +118,6 @@ namespace LTWeb_CodeFirst.Controllers
             return View(warranty);
         }
 
-        // GET: Warranties/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var warranty = await _context.Warranties
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (warranty == null)
-            {
-                return NotFound();
-            }
-
-            return View(warranty);
-        }
-
-        // POST: Warranties/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var warranty = await _context.Warranties.FindAsync(id);
-            if (warranty != null)
-            {
-                _context.Warranties.Remove(warranty);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
         private bool WarrantyExists(int id)
         {
             return _context.Warranties.Any(e => e.Id == id);
