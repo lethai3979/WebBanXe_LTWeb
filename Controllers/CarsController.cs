@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LTWeb_CodeFirst.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class CarsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -90,6 +89,7 @@ namespace LTWeb_CodeFirst.Controllers
             }
             return "/images/" + file.FileName;
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Seat,Price,CarTypeId,CompanyId,WarrantyId,Id,IsDeleted")] Car car, string Gear, IFormFile? CarImages)
@@ -121,6 +121,7 @@ namespace LTWeb_CodeFirst.Controllers
             return View(car);
         }
         // GET: Cars/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -148,6 +149,7 @@ namespace LTWeb_CodeFirst.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.[A[       
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Name,Seat,Price,CarTypeId,CompanyId,WarrantyId,Id,IsDeleted")] Car car, string gear,IFormFile? carImages)
         {
             if (id != car.Id)
@@ -205,6 +207,7 @@ namespace LTWeb_CodeFirst.Controllers
             return View(car);
         }
         // GET: Cars/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -228,6 +231,7 @@ namespace LTWeb_CodeFirst.Controllers
         // POST: Cars/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var car = await _context.Cars.FindAsync(id);

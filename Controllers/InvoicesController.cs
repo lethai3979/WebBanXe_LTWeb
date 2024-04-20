@@ -99,7 +99,7 @@ namespace LTWeb_CodeFirst.Controllers
             {
                 _context.Add(invoice);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Invoices", new { userId = invoice.UserId });
             }
             ViewData["PromotionId"] = new SelectList(_context.Promotions, "Id", "Content");
             return View(invoice);

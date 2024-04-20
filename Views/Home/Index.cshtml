@@ -37,12 +37,19 @@
 
 
                             <a asp-controller="Cars" asp-action="Details" asp-route-id="@item.Id" class="thea card-title">
-                                @Html.DisplayFor(modelItem =>
-                                         item.Name)
+                                @Html.DisplayFor(modelItem => item.Name)
                             </a>
                             <div class="d-flex">
                                 <span>Price: </span>
                                 <p class="mx-3">@item.Price.ToString("#,##0") Vnđ</p>
+                            </div>
+                            <div class="d-flex">
+                                <span>Company: </span>
+                                <p class="mx-3">@Html.DisplayFor(modelItem => @item.Company.Name)</p>
+                            </div>
+                            <div class="d-flex">
+                                <span>Car Type: </span>
+                                <p class="mx-3">@Html.DisplayFor(modelItem => @item.CarType.Name)</p>
                             </div>
                             @if (SignInManager.IsSignedIn(User))
                             {
@@ -52,14 +59,14 @@
                                         <button class="btn btn-outline-dark" style="border:1px solid hotpink;">
                                             <i class="ri-heart-2-fill classa"></i>  Add to Favorite
                                         </button>
-                                    </a>
+                                </a>
                             }
                             else
                             {
                                 <a id="login" asp-area="Identity" asp-page="/Account/Login">
 
-                                    <button class="btn btn-outline-dark">
-                                        <i class="bi-cart-fill me-1"></i> Add to Cart
+                                    <button class="btn btn-outline-dark" style="border:1px solid hotpink;">
+                                        <i class="ri-heart-2-fill classa"></i>  Add to Favorite
                                     </button>
                                 </a>
                             }
