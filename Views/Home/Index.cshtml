@@ -82,12 +82,12 @@
     <a asp-action="Index"
        asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-default
 @prevDisabled">
-        Previous
+        <img src="@Url.Content("~/images/logo/back-arrow.png")" width="25px" /> Previous
     </a>
     <a asp-action="Index"
        asp-route-pageNumber="@(Model.PageIndex + 1)"
        class="btn btn-default @nextDisabled">
-        Next
+        Next <img src="@Url.Content("~/images/logo/go-arrow.png")" width="25px" />
     </a>
 </div>
 

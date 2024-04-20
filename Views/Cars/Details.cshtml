@@ -6,41 +6,62 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Chi tiết</h1>
 
-<div>
-    <h4>Xe</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            Tên Xe
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            Mô tả
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            Chỗ Ngồi
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Seat)
-        </dd>
-        <dt class = "col-sm-2">
-            Hình Xe
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="@Model.CarImages" alt="hinhanh.jpg" width="200px" />
-        </dd>
-        <dt class = "col-sm-2">
-            Động Cơ
-        </dt>
-        <dd class = "col-sm-10">
-            @if (Model.Gear)
+
+
+<div style="width:85%;margin:auto;box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);padding:20px;">
+    <a asp-controller="Home" asp-action="Index" style="text-decoration:none; color:#333;margin:10px;"><img src="@Url.Content("~/images/logo/back-arrow.png")" width="25px" /> ComeBack</a>
+    <div class="" style="display:flex;margin-top:10px;">
+        <div>
+            <img src="@Model.CarImages" alt="hinhanh.jpg" width="550px" style="margin:2px;margin-bottom:10px; border-radius:5px;" />
+        </div>
+        <div style="margin:10px 20px;">
+            <div class="">
+                <div style="font-size:30px;font-weight:bold;margin:10px;">
+                    @Html.DisplayFor(model => model.Name)
+                </div>
+            </div>
+            <div class="" style="font-size:25px;margin:10px;">
+                <div>
+                    Car Company : @Html.DisplayFor(model => model.Company.Name)
+                </div>
+            </div>
+            <div class="">
+                <div style="font-size:20px;margin:10px;">
+                    @Html.DisplayFor(model => model.Description)
+                </div>
+            </div>
+            <div class="">
+                <div class="" style="font-size:20px;margin:10px;">
+                    @string.Format("{0:N0} VNĐ", Model.Price)
+                </div>
+            </div>
+            <div>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    var user = await UserManager.GetUserAsync(User);
+                    var userId = user.Id;
+                    <a asp-controller="Invoices" asp-action="Create" style="text-decoration:none;" asp-route-id="@Model.Id" asp-route-userId="@userId">
+                        <button class="btn btn-outline-dark aaaaaaaaaaaaa" >
+                            <i class="ri-shopping-cart-fill"></i>  Add to Favorite
+                        </button>
+                    </a>
+
+                    <a asp-controller="Favorite" asp-action="AddToFavorite" style="text-decoration:none;" asp-route-id="@Model.Id" asp-route-userId="@userId">
+                        <button class="btn btn-outline-dark bbbbbbbbbbbbb" >
+                            <i class="ri-heart-2-fill classa"></i>  Add to Favorite
+                        </button>
+                    </a>
+                }
+                
+            </div>
+           
+        </div>
+    </div>
+    <div class="grid-container">
+        <div class="grid-item"><img src="@Url.Content("~/images/logo/seat.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Seat</i> : @Html.DisplayFor(model => model.Seat)</div>
+        <div class="grid-item">
+            <img src="@Url.Content("~/images/logo/gearbox.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Greabox</i> : @if (Model.Gear)
             {
                 <text>Số tự động</text>
             }
@@ -48,45 +69,48 @@
             {
                 <text>Số sàn</text>
             }
-        </dd>
-        <dt class = "col-sm-2">
-           Giá Bán
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            Loại Xe
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CarType.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            Hãng Xe
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Company.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            Bảo Hành
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Warranty.Content)
-        </dd>
-        <dt class = "col-sm-2">
-            Trạng Thái Ẩn
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
-    </dl>
+        </div>
+        <div class="grid-item"><img src="@Url.Content("~/images/logo/download-speed.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Stable Speed</i> : 100 - 120Km/h</div>
+        <div class="grid-item"><img src="@Url.Content("~/images/logo/fuel.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Fuel</i> : Gasoline</div>
+        <div class="grid-item"><img src="@Url.Content("~/images/logo/car.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Car Type</i> : @Html.DisplayFor(model => model.CarType.Name)</div>
+        <div class="grid-item"><img src="@Url.Content("~/images/logo/maintenance.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Guarantee</i> : @Html.DisplayFor(model => model.Warranty.Content)</div>
+    </div>
+
 </div>
-<div>
-    @if (SignInManager.IsSignedIn(User))
-    {
-        var user = await UserManager.GetUserAsync(User);
-        var userId = user.Id;
-        <a asp-controller="Invoices" asp-action="Create" asp-route-id="@Model.Id" asp-route-userId="@userId">Mua ngay</a>
+   
+
+
+
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 cột có chiều rộng bằng nhau */
+        grid-template-rows: auto auto; /* 2 hàng tự điều chỉnh theo nội dung */
+        gap: 10px; /* Khoảng cách giữa các grid item */
     }
-    <a asp-controller="Home" asp-action="Index">Trở về danh sách</a>
-</div>
+
+    .grid-item {
+        background-color: #ddd; /* Màu nền của các grid item */
+        padding: 20px; /* Khoảng cách giữa nội dung và viền */
+        text-align: center; /* Căn giữa nội dung */
+        border-radius: 5px;
+    }
+
+    .aaaaaaaaaaaaa{
+        background-color:#333;color:white;
+    }
+    .bbbbbbbbbbbbb{
+        background-color: #333;
+        color: white;
+    }
+        .aaaaaaaaaaaaa:hover{
+            background-color:white;
+            color:#333;
+        }
+
+        .bbbbbbbbbbbbb:hover {
+            background-color: white;
+            color: #333;
+        }
+</style>
