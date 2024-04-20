@@ -5,6 +5,8 @@ namespace LTWeb_CodeFirst.Models
     public class Car : BaseModel 
     {
         public string? Name { get; set; }
+
+        public string? Description { get; set; }
         public int Seat { get; set; }
         public string? CarImages { get; set;}
         [ValidateNever]

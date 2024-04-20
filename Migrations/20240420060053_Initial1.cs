@@ -5,14 +5,14 @@
 namespace LTWeb_CodeFirst.Migrations
 {
     /// <inheritdoc />
-    public partial class AddPromotionContent : Migration
+    public partial class Initial1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Content",
-                table: "Promotions",
+                name: "Description",
+                table: "Cars",
                 type: "nvarchar(max)",
                 nullable: true);
         }
@@ -21,8 +21,8 @@ namespace LTWeb_CodeFirst.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Content",
-                table: "Promotions");
+                name: "Description",
+                table: "Cars");
         }
     }
 }

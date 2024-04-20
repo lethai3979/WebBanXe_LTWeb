@@ -113,6 +113,9 @@ namespace LTWeb_CodeFirst.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Gear")
                         .HasColumnType("bit");
 
