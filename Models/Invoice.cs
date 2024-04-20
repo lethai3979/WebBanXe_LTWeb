@@ -9,7 +9,7 @@ namespace LTWeb_CodeFirst.Models
         public int CarId { get; set; }
         [ValidateNever]
         public Car Car { get; set; } = null!;
-        public int PromotionId { get; set; }
+        public int? PromotionId { get; set; }
         [ValidateNever]
         public Promotion Promotion { get; set; } = null!;
 
