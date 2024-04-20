@@ -6,32 +6,32 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Chi tiết hóa đơn</h1>
 
 <div>
-    <h4>Invoice</h4>
+    <h4>Thông tin</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Total)
+            Tổng giá tiền
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Total)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateOn)
+            Ngày tạo hóa đơn
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CreateOn)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Car)
+            Xe
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Car.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Promotion)
+            Khuyến mãi áp dụng
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Promotion.Content)
@@ -42,7 +42,7 @@
     {
         var user = await UserManager.GetUserAsync(User);
         var userId = user.Id;
-        <a asp-action="Index" asp-route-userId="@Model.UserId">Back to List</a>
+        <a asp-action="Index" asp-route-userId="@Model.UserId">Trở về lịch sử giao dịch</a>
     }
 
 </div>

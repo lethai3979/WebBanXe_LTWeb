@@ -20,13 +20,12 @@ namespace LTWeb_CodeFirst.Controllers
         {
             _context = context;
         }
-        // GET: Cars
+
         public async Task<IActionResult> Index()
         {
             var cars = _context.Cars.Include(c => c.CarType).Include(c => c.Company).Include(c => c.Warranty);
             return View(await cars.ToListAsync());
         }
-        // GET: Cars/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -68,7 +67,6 @@ namespace LTWeb_CodeFirst.Controllers
             return Json(companies);
         }
         [Authorize(Roles ="Admin")]
-        // GET: Cars/Create
         public IActionResult Create()
         {
             var carTypes = _context.CarsType.Where(c => c.IsDeleted == false).ToList();
@@ -120,7 +118,6 @@ namespace LTWeb_CodeFirst.Controllers
             ViewData["WarrantyId"] = new SelectList(warranties, "Id", "Content");
             return View(car);
         }
-        // GET: Cars/Edit/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -142,11 +139,7 @@ namespace LTWeb_CodeFirst.Controllers
             ViewData["WarrantyId"] = new SelectList(warranties, "Id", "Content");
             return View(car);
         }
-
-        // POST: Cars/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.[A[       
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
 
@@ -209,7 +202,6 @@ namespace LTWeb_CodeFirst.Controllers
             ViewData["WarrantyId"] = new SelectList(warranties, "Id", "Content");
             return View(car);
         }
-        // GET: Cars/Delete/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -230,8 +222,6 @@ namespace LTWeb_CodeFirst.Controllers
 
             return View(car);
         }
-
-        // POST: Cars/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]

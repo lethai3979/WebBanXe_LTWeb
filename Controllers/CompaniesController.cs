@@ -21,13 +21,11 @@ namespace LTWeb_CodeFirst.Controllers
             _context = context;
         }
 
-        // GET: Companies
         public async Task<IActionResult> Index()
         {
             return View(await _context.Companies.ToListAsync());
         }
 
-        // GET: Companies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,17 +47,12 @@ namespace LTWeb_CodeFirst.Controllers
             return View(company);
         }
 
-        // GET: Companies/Create
         public IActionResult Create()
         {
             var carTypes = _context.CarsType.ToList();
             ViewData["CarTypes"] = new SelectList(carTypes, "Id", "Name");
             return View();
         }
-
-        // POST: Companies/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Id,IsDeleted")] Company company, int[] SelectedCarTypes)
@@ -92,7 +85,6 @@ namespace LTWeb_CodeFirst.Controllers
             }
         }
 
-        // GET: Companies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -113,9 +105,6 @@ namespace LTWeb_CodeFirst.Controllers
             return View(company);
         }
 
-        // POST: Companies/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Name,Id,IsDeleted")] Company company, int[] SelectedCarTypes)

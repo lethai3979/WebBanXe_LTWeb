@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LTWeb_CodeFirst.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240420120718_v2")]
-    partial class v2
+    [Migration("20240420122221_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -255,7 +255,7 @@ namespace LTWeb_CodeFirst.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PromotionId")
+                    b.Property<int?>("PromotionId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Total")
@@ -522,9 +522,7 @@ namespace LTWeb_CodeFirst.Migrations
 
                     b.HasOne("LTWeb_CodeFirst.Models.Promotion", "Promotion")
                         .WithMany("Invoices")
-                        .HasForeignKey("PromotionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PromotionId");
 
                     b.HasOne("LTWeb_CodeFirst.Models.ApplicationUser", "User")
                         .WithMany("Invoices")

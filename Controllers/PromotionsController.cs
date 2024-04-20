@@ -19,13 +19,11 @@ namespace LTWeb_CodeFirst.Controllers
             _context = context;
         }
 
-        // GET: Promotions
         public async Task<IActionResult> Index()
         {
             return View(await _context.Promotions.ToListAsync());
         }
 
-        // GET: Promotions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,15 +41,11 @@ namespace LTWeb_CodeFirst.Controllers
             return View(promotion);
         }
 
-        // GET: Promotions/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Promotions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Content,DiscountValue,Id,IsDeleted")] Promotion promotion)
@@ -65,7 +59,6 @@ namespace LTWeb_CodeFirst.Controllers
             return View(promotion);
         }
 
-        // GET: Promotions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,9 +74,6 @@ namespace LTWeb_CodeFirst.Controllers
             return View(promotion);
         }
 
-        // POST: Promotions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Content,DiscountValue,Id,IsDeleted")] Promotion promotion)

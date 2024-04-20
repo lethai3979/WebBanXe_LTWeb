@@ -39,22 +39,22 @@
                             if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Companies" asp-action="Index">Company</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Companies" asp-action="Index">QL hãng xe</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="CarTypes" asp-action="Index">Car Type</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="CarTypes" asp-action="Index">QL loại xe</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Warranties" asp-action="Index">Warranty</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Warranties" asp-action="Index">QL bảo hành</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Cars" asp-action="Index">Car</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Cars" asp-action="Index">QL xe</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Promotions" asp-action="Index">Promotion</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Promotions" asp-action="Index">QL khuyến mãi</a>
                                 </li>
                                 @* <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Invoices" asp-action="Index" asp-route-userId="@userId">Invoices</a>
@@ -63,7 +63,7 @@
                             if(User.IsInRole("Customer"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a>
                                 </li>
                                 @* <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Invoices" asp-action="Index">Invoices</a>
@@ -73,7 +73,7 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a>
                             </li>
                         }
 

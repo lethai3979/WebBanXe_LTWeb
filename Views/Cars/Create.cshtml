@@ -38,9 +38,10 @@
 </script>
 
 
-<h1>Create</h1>
+<h1>Thêm xe mới
+</h1>
 
-<h4>Car</h4>
+<h4>Điền thông tin</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -99,11 +100,11 @@
                 <label asp-for="WarrantyId" class="control-label">Bảo Hành</label>
                 <select asp-for="WarrantyId" class ="form-control" asp-items="ViewBag.WarrantyId"></select>
             </div>
-            <div class="form-group form-check">
+            @* <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsDeleted" /> Ẩn
                 </label>
-            </div>
+            </div> *@
             <div class="form-group">
                 <input type="submit" value="Thêm mới" class="btn btn-primary" />
             </div>

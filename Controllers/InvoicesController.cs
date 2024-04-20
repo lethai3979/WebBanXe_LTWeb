@@ -18,8 +18,6 @@ namespace LTWeb_CodeFirst.Controllers
         {
             _context = context;
         }
-
-        // GET: Invoices
         public async Task<IActionResult> Index(string userId)
         {
             ViewData["Cars"] = _context.Invoices.Select(f => f.Car).ToList();
@@ -28,7 +26,6 @@ namespace LTWeb_CodeFirst.Controllers
             return View(invoices);
         }
 
-        // GET: Invoices/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -72,7 +69,6 @@ namespace LTWeb_CodeFirst.Controllers
         }
 
 
-    // GET: Invoices/Create
     public async Task<IActionResult> Create(int id, string userId)
         {
             var car = await _context.Cars.FindAsync(id);

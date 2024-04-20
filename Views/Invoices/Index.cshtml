@@ -9,19 +9,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Total)
+                Tổng giá tiền
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreateOn)
+                Ngày tạo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Car)
+                Xe
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Promotion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
+                Mã khuyến mãi áp dụng
             </th>
             <th></th>
         </tr>
@@ -42,10 +39,7 @@
                 @Html.DisplayFor(modelItem => @item.Promotion.Content)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Chi tiết hóa đơn</a> |
             </td>
         </tr>
 }

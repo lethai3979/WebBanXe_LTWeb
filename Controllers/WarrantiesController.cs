@@ -21,13 +21,11 @@ namespace LTWeb_CodeFirst.Controllers
             _context = context;
         }
 
-        // GET: Warranties
         public async Task<IActionResult> Index()
         {
             return View(await _context.Warranties.ToListAsync());
         }
 
-        // GET: Warranties/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,15 +43,11 @@ namespace LTWeb_CodeFirst.Controllers
             return View(warranty);
         }
 
-        // GET: Warranties/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Warranties/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Content,Id,IsDeleted")] Warranty warranty)
@@ -67,7 +61,6 @@ namespace LTWeb_CodeFirst.Controllers
             return View(warranty);
         }
 
-        // GET: Warranties/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,9 +76,6 @@ namespace LTWeb_CodeFirst.Controllers
             return View(warranty);
         }
 
-        // POST: Warranties/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Content,Id,IsDeleted")] Warranty warranty)

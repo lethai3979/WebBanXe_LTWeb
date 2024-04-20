@@ -22,13 +22,11 @@ namespace LTWeb_CodeFirst.Controllers
             _context = context;
         }
 
-        // GET: CarTypes
         public async Task<IActionResult> Index()
         {
             return View(await _context.CarsType.ToListAsync());
         }
 
-        // GET: CarTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -50,7 +48,6 @@ namespace LTWeb_CodeFirst.Controllers
             return View(carType);
         }
 
-        // GET: CarTypes/Create
         
         public IActionResult Create()
         {
@@ -59,9 +56,7 @@ namespace LTWeb_CodeFirst.Controllers
             return View();
         }
 
-        // POST: CarTypes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Id,IsDeleted")] CarType carType, int[] SelectedCompanies)
@@ -88,7 +83,6 @@ namespace LTWeb_CodeFirst.Controllers
             return View(carType);
         }
 
-        // GET: CarTypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -104,9 +98,6 @@ namespace LTWeb_CodeFirst.Controllers
             return View(carType);
         }
 
-        // POST: CarTypes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Name,Id,IsDeleted")] CarType carType)

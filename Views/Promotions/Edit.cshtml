@@ -4,39 +4,39 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Chỉnh sửa khuyến mãi</h1>
 
-<h4>Promotion</h4>
+<h4>Thông tin chi tiết</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
+                <label asp-for="Content" class="control-label">Nội dung khuyến mãi</label>
                 <input asp-for="Content" class="form-control" />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DiscountValue" class="control-label"></label>
+                <label asp-for="DiscountValue" class="control-label">Giá trị khuyến mãi</label>
                 <input asp-for="DiscountValue" class="form-control" />
                 <span asp-validation-for="DiscountValue" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                    <input class="form-check-input" asp-for="IsDeleted" /> Ẩn
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Trở về trang khuyến mãi</a>
 </div>
 
 @section Scripts {

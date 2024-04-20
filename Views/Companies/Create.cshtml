@@ -3,21 +3,21 @@
 @{
     ViewData["Title"] = "Create";
 }
-<h1>Create</h1>
+<h1>Thêm hãng xe mới</h1>
 
-<h4>Company</h4>
+<h4>Điền thông tin</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">Tên hãng xe</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="checkbox-list">
-                Car Types: 
+                Loại xe: 
                 @foreach (var carType in ViewBag.CarTypes)
                 {
                     <div class="form-check">
@@ -28,20 +28,20 @@
                     </div>
                 }
             </div>
-            State
+            @* State
             <div class="form-group form-check">
                 <input class="form-check-input" asp-for="IsDeleted"/>
                 @Html.DisplayNameFor(model => model.IsDeleted) 
-            </div>
+            </div> *@
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Tạo mới" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Trở về trang chủ</a>
 </div>
 
 @section Scripts {

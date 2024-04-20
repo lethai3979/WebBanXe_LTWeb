@@ -6,37 +6,37 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Xác nhận mua hàng</h1>
 
-<h4>Invoice</h4>
+<h4>Thông tin mua hàng</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" id="invoiceForm" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Total" class="control-label"></label>
+                <label asp-for="Total" class="control-label">Tổng giá tiền</label>
                 <input asp-for="Total" class="form-control" id="totalInput" readonly />
                 <span asp-validation-for="Total" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreateOn" class="control-label"></label>
+                <label asp-for="CreateOn" class="control-label">Ngày lập đơn</label>
                 <input asp-for="CreateOn" class="form-control" readonly />
                 <span asp-validation-for="CreateOn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CarId" class="control-label"></label>
+                <label asp-for="CarId" class="control-label">Mã xe</label>
                 <input asp-for="CarId" class="form-control" readonly />
             </div>
             <div class="form-group">
-                <label asp-for="PromotionId" class="control-label"></label>
+                <label asp-for="PromotionId" class="control-label">Mã khuyến mãi</label>
                 <select asp-for="PromotionId" class="form-control" id="promotionSelect" asp-items="ViewBag.PromotionId">
                     <option value="">-- Chọn khuyến mãi --</option>
                 </select>
                 
             </div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
+                <label asp-for="UserId" class="control-label">Mã người dùng</label>
                 <input asp-for="UserId" class="form-control" readonly />
             </div>
             <div class="form-group form-check">
@@ -45,7 +45,7 @@
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Xác nhận mua" class="btn btn-primary" />
             </div>
         </form>
     </div>

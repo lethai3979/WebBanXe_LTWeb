@@ -6,29 +6,29 @@
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
 <ul class="nav nav-pills flex-column">
-    <li class="nav-item"><a class="nav-link chutrang @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
+    <li class="nav-item"><a class="nav-link chutrang @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Hồ sơ người dùng</a></li>
 
     @if (SignInManager.IsSignedIn(User))
     {
         var user = await UserManager.GetUserAsync(User);
         var userId = user.Id;
         @* <li class="nav-item"><a class="abc" asp-controller="Favorite" asp-action="Favorite" asp-route-userId="@userId">Favorite List</a></li> *@
-        <li class="nav-item"><a class="abc" asp-area="" asp-controller="Invoices" asp-action="Index">Invoices</a></li>
+        <li class="nav-item"><a class="abc" asp-area="" asp-controller="Invoices" asp-action="Index">Lịch sử mua hàng</a></li>
     }
     <li class="nav-item"><a class="nav-link chutrang @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
-    <li class="nav-item"><a class="nav-link chutrang @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
+    <li class="nav-item"><a class="nav-link chutrang @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Mật khẩu</a></li>
     @if (hasExternalLogins)
     {
         <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)
             " asp-page="./ExternalLogins">External logins</a></li>
     }
-    <li class="nav-item"><a class="nav-link chutrang @ManageNavPages.PersonalDataNavClass(ViewContext) " id="personal-data" asp-page="./PersonalData">Personal data</a></li>
+    <li class="nav-item"><a class="nav-link chutrang @ManageNavPages.PersonalDataNavClass(ViewContext) " id="personal-data" asp-page="./PersonalData">Thông tin cá nhân</a></li>
     <li class="nav-item">
         @* <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
             <a type="submit"  class="haha">Logout</a>
         </form> *@
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit"  class="haha">Logout</button>
+            <button id="logout" type="submit"  class="haha">Đăng xuất</button>
         </form>
     </li>
 </ul>

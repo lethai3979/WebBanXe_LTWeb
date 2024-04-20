@@ -10,7 +10,7 @@
 
 
 <div style="width:85%;margin:auto;box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);padding:20px;">
-    <a asp-controller="Home" asp-action="Index" style="text-decoration:none; color:#333;margin:10px;"><img src="@Url.Content("~/images/logo/back-arrow.png")" width="25px" /> ComeBack</a>
+    <a asp-controller="Home" asp-action="Index" style="text-decoration:none; color:#333;margin:10px;"><img src="@Url.Content("~/images/logo/back-arrow.png")" width="25px" />  Quay về trang chủ</a>
     <div class="" style="display:flex;margin-top:10px;">
         <div>
             <img src="@Model.CarImages" alt="hinhanh.jpg" width="550px" style="margin:2px;margin-bottom:10px; border-radius:5px;" />
@@ -23,7 +23,7 @@
             </div>
             <div class="" style="font-size:25px;margin:10px;">
                 <div>
-                    Car Company : @Html.DisplayFor(model => model.Company.Name)
+                    Hãng : @Html.DisplayFor(model => model.Company.Name)
                 </div>
             </div>
             <div class="">
@@ -43,13 +43,13 @@
                     var userId = user.Id;
                     <a asp-controller="Invoices" asp-action="Create" style="text-decoration:none;" asp-route-id="@Model.Id" asp-route-userId="@userId">
                         <button class="btn btn-outline-dark aaaaaaaaaaaaa" >
-                            <i class="ri-shopping-cart-fill"></i>  Buy Now
+                            <i class="ri-shopping-cart-fill"></i>  Mua ngay
                         </button>
                     </a>
 
                     <a asp-controller="Favorite" asp-action="AddToFavorite" style="text-decoration:none;" asp-route-id="@Model.Id" asp-route-userId="@userId">
                         <button class="btn btn-outline-dark bbbbbbbbbbbbb" >
-                            <i class="ri-heart-2-fill classa"></i>  Add to Favorite
+                            <i class="ri-heart-2-fill classa"></i>  Thêm vào danh sách yêu thích
                         </button>
                     </a>
                 }
@@ -59,9 +59,9 @@
         </div>
     </div>
     <div class="grid-container">
-        <div class="grid-item"><img src="@Url.Content("~/images/logo/seat.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Seat</i> : @Html.DisplayFor(model => model.Seat)</div>
+        <div class="grid-item"><img src="@Url.Content("~/images/logo/seat.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Số ghế ngồi</i> : @Html.DisplayFor(model => model.Seat)</div>
         <div class="grid-item">
-            <img src="@Url.Content("~/images/logo/gearbox.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Greabox</i> : @if (Model.Gear)
+            <img src="@Url.Content("~/images/logo/gearbox.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Loại số</i> : @if (Model.Gear)
             {
                 <text>Số tự động</text>
             }
@@ -70,10 +70,10 @@
                 <text>Số sàn</text>
             }
         </div>
-        <div class="grid-item"><img src="@Url.Content("~/images/logo/download-speed.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Stable Speed</i> : 100 - 120Km/h</div>
-        <div class="grid-item"><img src="@Url.Content("~/images/logo/fuel.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Fuel</i> : Gasoline</div>
-        <div class="grid-item"><img src="@Url.Content("~/images/logo/car.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Car Type</i> : @Html.DisplayFor(model => model.CarType.Name)</div>
-        <div class="grid-item"><img src="@Url.Content("~/images/logo/maintenance.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Guarantee</i> : @Html.DisplayFor(model => model.Warranty.Content)</div>
+        <div class="grid-item"><img src="@Url.Content("~/images/logo/download-speed.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Vận tốc tối đa</i> : 100 - 120Km/h</div>
+        <div class="grid-item"><img src="@Url.Content("~/images/logo/fuel.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Nhiên liệu</i> : Gasoline</div>
+        <div class="grid-item"><img src="@Url.Content("~/images/logo/car.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Loại xe</i> : @Html.DisplayFor(model => model.CarType.Name)</div>
+        <div class="grid-item"><img src="@Url.Content("~/images/logo/maintenance.png")" width="40px" /> <i style="font-size:18px;font-weight:bold; margin-inline:2px;">Bảo hành</i> : @Html.DisplayFor(model => model.Warranty.Content)</div>
     </div>
 
 </div>
