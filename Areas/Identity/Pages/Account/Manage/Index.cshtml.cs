@@ -64,6 +64,8 @@ namespace LTWeb_CodeFirst.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            [Display(Name = "FullName")]
+            public string FullName { get; set; }
             [Display(Name = "Images")]
             public string Images { get; set; }
         }
@@ -99,11 +101,12 @@ namespace LTWeb_CodeFirst.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
+            var name = user.FullName;
             Username = userName;
 
             Input = new InputModel
             {
+                FullName = name,
                 PhoneNumber = phoneNumber,
             };
         }
@@ -139,8 +142,15 @@ namespace LTWeb_CodeFirst.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{user.Id}'.");
             }
-
-            if (Request.Form.Files[0] != null)
+            if(currentUser.FullName != null)
+            {
+                currentUser.FullName = Input.FullName;
+            }
+            else
+            {
+                currentUser.FullName = currentUser.FullName;
+            }
+            if (Request.Form.Files.Count != 0)
             {
                 var newImagePath = await SaveImage(Request.Form.Files[0]);
                 if (currentUser.Images != newImagePath)
@@ -148,6 +158,11 @@ namespace LTWeb_CodeFirst.Areas.Identity.Pages.Account.Manage
                     currentUser.Images = newImagePath;
                     await _context.SaveChangesAsync();
                 }
+            }
+            else
+            {
+                currentUser.Images = user.Images;
+                await _context.SaveChangesAsync();
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);

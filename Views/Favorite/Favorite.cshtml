@@ -5,42 +5,67 @@
 @{
     ViewData["Title"] = "Favorite";
 }
+<div style="min-height:600px;">
 
-<h1>Favorite</h1>
+    <h1>Favorite</h1>
 
-<p>
-    <a asp-controller="Cars" asp-action="Index">Back To List</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CarId)
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => @item.Car.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.CarId">Details</a> |
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        var user = await UserManager.GetUserAsync(User);
-                        var userId = user.Id;
-                        <a asp-action="Delete" asp-route-id="@item.CarId" asp-route-userId="@userId">Delete</a>
-                    }
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <p>
+        <a asp-controller="Home" asp-action="Index" class="azzz"><img src="@Url.Content("~/images/logo/back-arrow.png")" width="25px" /> Back To List</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Name car
+                </th>
+                <th>
+                    Company
+                </th>
+                <th>
+                    Car Type
+                </th>
+                <th>
+                    Image
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.Car.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.Car.Company.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @item.Car.CarType.Name)
+                    </td>
+                    <td>
+                        <img src="@item.Car.CarImages" width="100px" alt="Alternate Text" />
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.CarId">Details</a> |
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            var user = await UserManager.GetUserAsync(User);
+                            var userId = user.Id;
+                            <a asp-action="Delete" asp-route-id="@item.CarId" asp-route-userId="@userId">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<style>
+    .azzz{
+        text-decoration:none;font-size:18px;color:black;
+    }
+    .azzz:hover{
+        color:darkblue;
+        font-weight:bold;
+    }
+</style>
