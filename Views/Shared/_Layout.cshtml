@@ -35,8 +35,8 @@
 
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            var user = await UserManager.GetUserAsync(User);
-                            var userId = user.Id;
+                            @* var user = await UserManager.GetUserAsync(User);
+                            var userId = user.Id; *@
                             if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
@@ -57,9 +57,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Promotions" asp-action="Index">Promotion</a>
                                 </li>
-                                <li class="nav-item">
+                                @* <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Invoices" asp-action="Index" asp-route-userId="@userId">Invoices</a>
-                                </li>
+                                </li> *@
                             }
                             if(User.IsInRole("Customer"))
                             {

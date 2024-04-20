@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LTWeb_CodeFirst.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class v1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -250,6 +250,7 @@ namespace LTWeb_CodeFirst.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Seat = table.Column<int>(type: "int", nullable: false),
                     CarImages = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Gear = table.Column<bool>(type: "bit", nullable: false),
