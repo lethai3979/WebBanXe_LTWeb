@@ -22,7 +22,6 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    @* LTWeb_CodeFirst *@
                     <img class="logo" src="@Url.Content("~/images/logo/logoweb.png")" alt="" />
                     </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -66,9 +65,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                                 </li>
-                                <li class="nav-item">
+                                @* <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Invoices" asp-action="Index">Invoices</a>
-                                </li>
+                                </li> *@
                             }
                         }
                         else

@@ -22,6 +22,10 @@ namespace LTWeb_CodeFirst.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<Invoice>(e =>
+            {
+                e.Property(e => e.PromotionId).HasDefaultValue(null);
+            });
         }
     }
 }

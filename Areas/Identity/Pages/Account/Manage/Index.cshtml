@@ -19,8 +19,9 @@
             <form id="profile-form" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
-                    <label asp-for="Username" class="form-label"></label>
+                    <input asp-for="Input.FullName" class="form-control" placeholder="Please choose your FullName." />
+                    <label asp-for="Input.FullName" class="form-label"></label>
+                    <span asp-validation-for="Input.FullName" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
                     <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number." />
@@ -60,14 +61,16 @@
 
 <script>
     function previewImage(input) {
-        var file = input.files[0];
-        var reader = new FileReader();
+        if (input.files && input.files[0]) {
+            var file = input.files[0];
+            var reader = new FileReader();
 
-        reader.onload = function (e) {
-            document.getElementById('productImage').src = e.target.result;
-        };
+            reader.onload = function (e) {
+                document.getElementById('productImage').src = e.target.result;
+            };
 
-        reader.readAsDataURL(file);
+            reader.readAsDataURL(file);
+        }
     }
 </script>
 
