@@ -76,14 +76,20 @@ namespace LTWeb_CodeFirst.Controllers
     public async Task<IActionResult> Create(int id, string userId)
         {
             var car = await _context.Cars.FindAsync(id);
+            var username = await _context.Users.FindAsync(userId);
             var invoice = new Invoice()
             {
                 CarId = id,
                 UserId = userId,
+                User = username,
                 CreateOn = DateTime.Now,
-                Total = car.Price
-            };
+                Total = car.Price,
+                Car = car,
+               
+            }; 
             ViewData["PromotionId"] = new SelectList(_context.Promotions, "Id", "Content");
+            ViewData["Company"] = _context.FavoriteLists.Select(f => f.Car.Company).ToList();
+            ViewData["Cars"] = _context.Invoices.Select(f => f.Car).ToList();
             return View(invoice);
         }
 

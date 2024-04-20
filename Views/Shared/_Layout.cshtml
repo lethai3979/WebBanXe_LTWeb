@@ -88,7 +88,26 @@
                         
                     </ul>
 
-                    @* <i class="ri-heart-2-fill classa"></i> *@
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        var user = await UserManager.GetUserAsync(User);
+                        var userId = user.Id;
+                        if (User.IsInRole("Admin"))
+                        {
+                            <a style="padding:10px 20px; border:2px solid black; border-radius:5px;color:black;text-decoration:none;" asp-controller="Favorite" asp-action="Favorite" asp-route-userId="@userId">
+                                <img src="@Url.Content("~/images/logo/favorite.png")" width="30px" /> Yêu thích
+                            </a>
+                        }
+                        if (User.IsInRole("Customer"))
+                        {
+                            <a style="padding:10px 20px; border:2px solid black; border-radius:5px;color:black;text-decoration:none;" asp-controller="Favorite" asp-action="Favorite" asp-route-userId="@userId">
+                                <img src="@Url.Content("~/images/logo/favorite.png")" width="30px" /> Yêu thích
+                            </a>
+                        }
+                    }
+                    
+                    
+                   
                     <partial name="_LoginPartial" />
                 </div>
             </div>
