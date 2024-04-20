@@ -92,7 +92,7 @@ namespace LTWeb_CodeFirst.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Seat,Price,CarTypeId,CompanyId,WarrantyId,Id,IsDeleted")] Car car, string Gear, IFormFile? CarImages)
+        public async Task<IActionResult> Create([Bind("Name,Description,Seat,Price,CarTypeId,CompanyId,WarrantyId,Id,IsDeleted")] Car car, string Gear, IFormFile? CarImages)
         {
             if(Gear == "Số tự động")
             {
@@ -149,8 +149,10 @@ namespace LTWeb_CodeFirst.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.[A[       
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Seat,Price,CarTypeId,CompanyId,WarrantyId,Id,IsDeleted")] Car car, string gear,IFormFile? carImages)
+        
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Description,Seat,Price,CarTypeId,CompanyId,WarrantyId,Id,IsDeleted")] Car car, string gear,IFormFile? carImages)
         {
             if (id != car.Id)
             {
@@ -173,6 +175,7 @@ namespace LTWeb_CodeFirst.Controllers
                         existingCar.CarImages = await SaveImage(carImages);
                     }
                     existingCar.Name = car.Name;
+                    existingCar.Description = car.Description;
                     existingCar.Seat = car.Seat;
                     existingCar.Price = car.Price;
                     existingCar.CarTypeId = car.CarTypeId;

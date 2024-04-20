@@ -87,6 +87,7 @@ namespace LTWeb_CodeFirst.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DiscountValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -243,34 +244,6 @@ namespace LTWeb_CodeFirst.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Invoices",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CreateOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PromotionId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Invoices", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Invoices_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Invoices_Promotions_PromotionId",
-                        column: x => x.PromotionId,
-                        principalTable: "Promotions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Cars",
                 columns: table => new
                 {
@@ -336,30 +309,36 @@ namespace LTWeb_CodeFirst.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InvoiceDetails",
+                name: "Invoices",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CreateOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CarId = table.Column<int>(type: "int", nullable: false),
-                    InvoiceId = table.Column<int>(type: "int", nullable: false),
+                    PromotionId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InvoiceDetails", x => x.Id);
+                    table.PrimaryKey("PK_Invoices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InvoiceDetails_Cars_CarId",
+                        name: "FK_Invoices_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Invoices_Cars_CarId",
                         column: x => x.CarId,
                         principalTable: "Cars",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_InvoiceDetails_Invoices_InvoiceId",
-                        column: x => x.InvoiceId,
-                        principalTable: "Invoices",
+                        name: "FK_Invoices_Promotions_PromotionId",
+                        column: x => x.PromotionId,
+                        principalTable: "Promotions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -439,14 +418,9 @@ namespace LTWeb_CodeFirst.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InvoiceDetails_CarId",
-                table: "InvoiceDetails",
+                name: "IX_Invoices_CarId",
+                table: "Invoices",
                 column: "CarId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_InvoiceDetails_InvoiceId",
-                table: "InvoiceDetails",
-                column: "InvoiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Invoices_PromotionId",
@@ -484,16 +458,19 @@ namespace LTWeb_CodeFirst.Migrations
                 name: "FavoriteLists");
 
             migrationBuilder.DropTable(
-                name: "InvoiceDetails");
+                name: "Invoices");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "Cars");
 
             migrationBuilder.DropTable(
-                name: "Invoices");
+                name: "Promotions");
 
             migrationBuilder.DropTable(
                 name: "CarsType");
@@ -503,12 +480,6 @@ namespace LTWeb_CodeFirst.Migrations
 
             migrationBuilder.DropTable(
                 name: "Warranties");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Promotions");
         }
     }
 }
