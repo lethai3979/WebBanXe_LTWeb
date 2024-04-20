@@ -37,15 +37,15 @@
                                 @Html.DisplayFor(modelItem => item.Name)
                             </a>
                             <div class="d-flex">
-                                <span>Price: </span>
+                                <span>Giá: </span>
                                 <p class="mx-3">@item.Price.ToString("#,##0") Vnđ</p>
                             </div>
                             <div class="d-flex" style="margin-top:-7px;">
-                                <span>Company: </span>
+                                <span>Hãng: </span>
                                 <p class="mx-3">@Html.DisplayFor(modelItem => @item.Company.Name)</p>
                             </div>
                             <div class="d-flex" style="margin-bottom:-10px;">
-                                <span>Car Type: </span>
+                                <span>Loại: </span>
                                 <p class="mx-3">@Html.DisplayFor(modelItem => @item.CarType.Name)</p>
                             </div>
                             @* @if (SignInManager.IsSignedIn(User))
