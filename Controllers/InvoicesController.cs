@@ -87,9 +87,6 @@ namespace LTWeb_CodeFirst.Controllers
             return View(invoice);
         }
 
-        // POST: Invoices/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Total,CreateOn,CarId,PromotionId,UserId,IsDeleted")] Invoice invoice)
